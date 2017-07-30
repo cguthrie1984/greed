@@ -1,0 +1,235 @@
+<html>
+  <head>
+  </head>
+  <body>
+    <script>
+      "use strict";
+      
+      var UP = 0;
+      var DOWN = 1;
+      var LEFT = 2;
+      var RIGHT = 3;
+      
+      /* Returns a random number greater than or equal to min and less than max */
+      function rand_int(min, max){
+        if (max < min)
+          throw "Max cannot be less than min";
+          
+        return Math.floor(Math.random() * (max - min)) + min;
+      }
+      
+      /* Shuffles an array in place */
+      function shuffle(array){
+        var beginning;
+        var limit = array.length;
+        var selection;
+        var tmp;
+        var end = limit - 1;
+        
+        for (beginning = 0; beginning < end; beginning++){
+          selection = rand_int(beginning + 1, limit);
+          tmp = array[beginning];
+          array[beginning] = array[selection];
+          array[selection] = tmp;
+        }
+      }
+      
+      /* Traces a random, self-avoiding path through a matrix */
+      function rand_path(width, height, starting_point=undefined){
+      
+        if (width < 1 || height < 1){
+          throw "width or height cannot be zero or less";
+        }
+        
+        if (starting_point === undefined){
+          /* Randomly generate starting point */
+          starting_point = [rand_int(0, width), rand_int(0, height)];
+        }
+        else if (starting_point.length !== 2){
+          throw "starting point invalid";
+        }
+        else if (starting_point[0] < 0 || starting_point[1] < 0 || starting_point[0] > width - 1 || starting_point[1] > height - 1){
+          throw "starting point out of bounds!";
+        }
+      
+        /* Creates an empty m x n matrix */
+        function create_empty_matrix(m, n){
+          var out = [];
+          for (var i = 0; i < m; i++){
+            var inner = [];
+            for (var j = 0; j < n; j++){
+              inner.push(false);
+            }
+            out.push(inner);
+          }
+          return out;
+        }
+        
+        function rand_path_r(path, points_traversed, current_point){
+          
+          /* Get the number of spaces in each direction able to be traveled */
+          function max_can_move_up(){
+            var i = current_point[1];
+            // Move up to see next point
+            while(i--){
+              if (points_traversed[current_point[0]][i] === true){
+                break;
+              }
+            }
+            return current_point[1] - i - 1;
+          }
+          
+          function max_can_move_down(){
+            var i;
+            for(i = current_point[1]; i < height; i++){
+              if (points_traversed[current_point[0]][i] === true){
+                break;
+              }
+            }
+            return i - 1 - current_point[1];
+          }
+          
+          function max_can_move_left(){
+            var i = current_point[0];
+            while(i--){
+              if (points_traversed[i][current_point[1]] === true){
+                break;
+              }
+            }
+            return current_point[0] - i - 1;
+          }
+          
+          function max_can_move_right(){
+            // look for "islands." An island is a series of contiguous false squares. If there is more than one made by a move
+            // the path will be unsolvable.
+            
+            /*
+            var i;
+            for(i = current_point[0]; i < width; i++){
+              if (points_traversed[i][current_point[1]] === true){
+                break;
+              }
+            }*/
+            // Now look for "walls"
+            
+            
+            
+            // return i - 1 - current_point[0];
+            
+          }
+          
+          /*
+          
+          */
+          /* Counts the number of blocks of contiguous squares. If there is more than one at any given time, the 
+             matrix is unsolvable with the current path. */
+          function count_islands(){
+            // copy the points_traversed matrix to count off cells
+            var points_traversed_copy = [];
+            for(var x = 0; x < points_traversed.length; x++){
+              var tmp = [];
+              for(var y = 0; y < points_traversed[x].length; y++){
+                tmp.push(points_traversed[x][y]);
+              }  
+            }
+            console.log(points_traversed_copy);
+            // Find first false cell
+            // If O (contiguous stack) is empty, pop first false cell from start array of candidate cells (C) onto O
+            // For each cell in O, determine if any neigboring cells are in C. If so, pop them, from C onto O if not already there
+            // Pop cell from O onto exhausted stack(E) as new array.
+            // repeat until no cells in C
+          }
+          
+          // Debug
+          points_traversed[2][0] = true;
+          points_traversed[2][1] = true;
+          points_traversed[2][3] = true;
+          
+          //console.log(points_traversed);
+          count_islands();
+        }
+        
+        var points_traversed = create_empty_matrix(width, height);
+        var path = [];
+        rand_path_r(path, points_traversed, starting_point);
+        return path;
+      }
+      
+      //rand_path(4,4,[0,2]);
+      
+      function pop_coordinate(matrix){
+        var slice = matrix;
+        var coordinate = [];
+
+        while (slice && typeof slice[slice.length - 1] === 'object' ){
+          // delete empty row
+          if (!slice[slice.length - 1].length){
+            slice.pop();
+          }
+          coordinate.push(slice.length - 1);
+          slice = slice[slice.length - 1]
+        }
+        
+        if (!slice)
+          return;
+          
+        coordinate.push(slice.pop());
+        return coordinate;
+      }
+      
+      function count_islands(matrix, target_value){
+        /* Creates a tree of all cell locations having the target value */
+        function make_tree(matrix){
+          var out = [];
+          
+          for (var i = 0; i < matrix.length; i++){
+            if (typeof matrix[i] === "object"){
+              out.push(make_tree(matrix[i], target_value));
+            }
+            else{
+              if (matrix[i] === target_value){
+                out.push(i);
+              }
+            }
+          }
+          return out;
+        }
+        
+        var source_cells = make_tree(matrix);
+        var island = [];
+        var islands = [];
+        
+        //while (source_cells.length){
+          // push the cell into the candidates pile so we know what to look around
+          console.log(source_cells);
+          console.log(pop_coordinate(source_cells));
+          console.log(pop_coordinate(source_cells));
+          console.log(pop_coordinate(source_cells));
+          console.log(pop_coordinate(source_cells));
+          console.log(pop_coordinate(source_cells));
+          console.log(pop_coordinate(source_cells));
+          console.log(pop_coordinate(source_cells));
+          console.log(pop_coordinate(source_cells));
+          console.log(pop_coordinate(source_cells));
+          console.log(pop_coordinate(source_cells));
+          console.log(pop_coordinate(source_cells));
+          //island.push(source_cells.pop());
+          //console.log( island );
+          //while (island.length){
+            // Check for adjacent cells
+          //  if (source_cells[])
+          //}
+        //}
+        
+        
+      }
+      var matrix = [[true, true, false, false], [true, true, false, true], [false, false, true, true], [true, false, true, true]];
+      count_islands(matrix, true); // answer should be 3
+      
+      
+      
+      
+      
+    </script>
+  </body>
+</html>
