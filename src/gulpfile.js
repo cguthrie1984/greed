@@ -8,6 +8,8 @@ var plumber = require('gulp-plumber');
 var browserSync = require('browser-sync');
 var handlebars = require('gulp-compile-handlebars');
 var data = require('gulp-data');
+var jshint = require('gulp-jshint');
+var prefixer = require('gulp-autoprefixer');
 var handlebars_options = {
   batch : ['partials']
 };
@@ -24,6 +26,10 @@ gulp.task('sass', function(){
   .pipe(sass({
     includePaths: ['scss']
   }))
+  .pipe(prefixer({
+    browsers: ['last 2 versions'],
+    cascade: false
+  }))
   .pipe(gulp.dest('../dist/css'))
   .pipe(rename({suffix: '.min'}))
   .pipe(minifycss())
@@ -36,6 +42,8 @@ gulp.task('js', function(){
     'js/main.js'
   ])
   .pipe(gulp.dest('../dist/js'))
+  .pipe(jshint())
+  .pipe(jshint.reporter('default'))
   .pipe(rename({suffix: '.min'}))
   .pipe(uglify())
   .pipe(gulp.dest('../dist/js'));

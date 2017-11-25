@@ -1,3 +1,57 @@
 body{
-  background-color: blue;
+  width: 1024px;
+  margin: 0 auto;
+  max-width: 100%;
+  font-family: 'Montserrat', Arial, sans-serif;
+}
+
+#game_table{
+  border-spacing: 1px;
+  margin: 0 auto;
+  td{
+    width: 21px;
+    height: 21px;
+    text-align: center;
+  }
+}
+
+.number{
+  border: 1px solid #ccc;
+  border-radius: 3px;
+}
+
+.number_1{
+  color: #de0500;
+}
+
+.number_2{
+  color: #00c812;
+}
+
+.number_3{
+  color: #0602cf;
+}
+
+.number_4{
+  color: #a100cc;
+}
+
+.number_5{
+  color: #555655;
+}
+
+.number_6{
+  color: #cfcf00;
+}
+
+.number_7{
+  color: #00c4eb;
+}
+
+.number_8{
+  color: #855500;
+}
+
+.number_9{
+  color: #007800;
 }

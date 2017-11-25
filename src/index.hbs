@@ -1,24 +1,19 @@
+<!DOCTYPE html>
 <html>
   <head>
     <title>Greed</title>
-    <style>
-      .row::after{
-        content: '';
-        clear:both;
-      }
-    </style>
+    <link href="https://fonts.googleapis.com/css?family=Montserrat:600" rel="stylesheet">
+    <link rel="stylesheet" href="css/main.css" type="text/css" />
   </head>
   <body>
-    <div class="row">
-      <div class="left">
-        <table id="game_table">
-        </table>
+    <h1>Greed</h1>
+      <table id="game_table">
+      </table>
+      <div id="info_panel">
+        Score: <span id="score">0</span><br/>
+        <button id="new_game">New Game</button><br/>
+        <button id="help">Help</button>
       </div>
-      <div class="right">
-      </div>
-    </div>
-    <script>
-      "use strict";
-    </script>
+    <script src="js/main.js"></script>
   </body>
 </html>

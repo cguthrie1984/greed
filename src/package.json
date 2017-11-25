@@ -11,7 +11,10 @@
     "gulp-concat": "latest",
     "gulp-plumber": "latest",
     "gulp-data": "latest",
+    "gulp-autoprefixer": "latest",
     "gulp-compile-handlebars": "latest",
+    "jshint": "latest",
+    "gulp-jshint": "latest",
     "browser-sync": "latest"
   },
   "devDependencies": {
