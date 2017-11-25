@@ -1,0 +1,22 @@
+{
+  "name": "greed",
+  "version": "1.0.0",
+  "description": "Automation tools for building Greed",
+  "main": "index.js",
+  "dependencies": {
+    "gulp-sass": "latest",
+    "gulp-uglify": "latest",
+    "gulp-rename": "latest",
+    "gulp-minify-css": "latest",
+    "gulp-concat": "latest",
+    "gulp-plumber": "latest",
+    "gulp-data": "latest",
+    "gulp-compile-handlebars": "latest",
+    "browser-sync": "latest"
+  },
+  "devDependencies": {
+    "gulp": "latest"
+  },
+  "author": "Chris Guthrie",
+  "license": "GPL-3.0"
+}
